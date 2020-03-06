@@ -1,0 +1,50 @@
+.container {
+  display: grid;
+  height: 100vh;
+  grid-template-rows: 10% 90%;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 20% 70%;
+  column-gap: 10%;
+  align-items: center;
+  background-color: #1D3C78;
+}
+
+.banner {
+  background-color: #2851A3;
+  padding: 10px;
+}
+
+.header {
+  text-decoration: none;
+  color: white;
+}
+
+.chatbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #FFFFFF;
+  border-radius: 8px;
+  height: 100%;
+  right: 0;
+  overflow: auto;
+}
+
+@media (max-width: 1200px) {
+  .content {
+    grid-template-columns: 29% 70%;
+    column-gap: 1%;
+  }
+}
+
+@media (max-width: 450px) {
+  .banner {
+    padding: 0;
+  }
+  .banner h1 {
+    font-size: 1.5em;
+  }
+}
