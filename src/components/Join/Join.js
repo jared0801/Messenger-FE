@@ -6,7 +6,7 @@ import './Join.css';
 
 let socket;
 
-const Join = () => {
+const Join = ({ history }) => {
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
     const [activeRooms, setActiveRooms] = useState([]);
@@ -31,6 +31,10 @@ const Join = () => {
         }
     });
 
+    const moveToChat = () => {
+        history.push(`/chat?name=${name}&room=${room}`);
+    }
+
     const activeRoomsList = (
         <ul className="roomList">
             { activeRooms.map((room) => 
@@ -42,7 +46,7 @@ const Join = () => {
     return (
         <div className="joinOuterContainer">
             
-            <JoinForm socket={socket} name={name} setName={setName} room={room} setRoom={setRoom} />
+            <JoinForm onSuccess={moveToChat} socket={socket} name={name} setName={setName} room={room} setRoom={setRoom} />
 
             <div className="activeRoomsContainer">
                 <h2 className="heading">Currently Active Rooms</h2>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import './JoinForm.css';
 
-const JoinForm = ({ name, setName, room, setRoom, socket, history }) => {
+const JoinForm = ({ name, setName, room, setRoom, socket, onSuccess }) => {
     
     const [nameErrorMsg, setNameErrorMsg] = useState('');
     const [roomErrorMsg, setRoomErrorMsg] = useState('');
@@ -28,7 +28,7 @@ const JoinForm = ({ name, setName, room, setRoom, socket, history }) => {
 
     
 
-    const verifyInput = async (event) => {
+    const verifyInput = (event) => {
         // Check both fields are filled.
         if(!name || !room) {
             event.preventDefault();
@@ -43,7 +43,7 @@ const JoinForm = ({ name, setName, room, setRoom, socket, history }) => {
         // Check user name is available
         socket.emit('checkUser', { name, room }, (success) => {
             if(success)
-                history.push(`/chat?name=${name}&room=${room}`);
+                onSuccess(name, room)
             else {
                 setNameErrorMsg("Name is not available in this room.");
             }
@@ -73,7 +73,7 @@ const JoinForm = ({ name, setName, room, setRoom, socket, history }) => {
                 {roomErrorDiv}
             </div>
 
-            <button className="button mt-20" type="submit" onClick={async event => await verifyInput(event)}>Sign In</button>
+            <button className="button mt-20" type="submit" onClick={event => verifyInput(event)}>Sign In</button>
         </div>
     );
 }
