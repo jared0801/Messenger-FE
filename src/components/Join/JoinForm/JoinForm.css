@@ -1,0 +1,65 @@
+.joinFormContainer {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+
+.joinInput {
+    border-radius: 5px;
+    border: none;
+    padding: 15px 20px;
+    width: 100%;
+}
+  
+
+.errorMsg {
+    color: red;
+    height: 1em;
+}
+
+.errorInput {
+    border: 2px solid red;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.button {
+    color: #fff !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: #2979FF;
+    padding: 20px;
+    border-radius: 5px;
+    display: inline-block;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+button:focus {
+    outline: 0;
+}
+
+
+
+@media (max-width: 1200px) {  
+    .joinFormContainer {
+        position: relative;
+        margin: 10% auto 0;
+    }
+
+}
+
+@media (max-width: 350px) {
+    .joinFormContainer {
+        width: 90%;
+    }
+}

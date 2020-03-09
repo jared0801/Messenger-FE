@@ -1,71 +1,52 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
+import JoinForm from './JoinForm/JoinForm';
 
 import './Join.css';
+
+let socket;
 
 const Join = () => {
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
-    const [nameErrorMsg, setNameErrorMsg] = useState('');
-    const [roomErrorMsg, setRoomErrorMsg] = useState('');
+    const [activeRooms, setActiveRooms] = useState([]);
+    const ENDPOINT = process.env.REACT_APP_SERVER_PATH;
 
-    const verifyInput = event => {
-        if(!name || !room) {
-            event.preventDefault();
-            if(!name) {
-                setNameErrorMsg("A name is required.");
-            }
-            if(!room) {
-                setRoomErrorMsg("A room is required.");
-            }
+    useEffect(() => {
+
+        // Setup socket
+        socket = io(ENDPOINT);
+
+    }, [ENDPOINT])
+
+    useEffect(() => {
+        // Update active rooms
+        socket.on('getRooms', (rooms) => {
+            setActiveRooms(rooms);
+        })
+
+        return () => {
+            socket.emit('disconnect');
+            socket.off();
         }
-    }
+    });
 
-    const roomChange = event => {
-        setRoomErrorMsg('');
-        setRoom(event.target.value);
-    }
-
-    const nameChange = event => {
-        setNameErrorMsg('');
-        setName(event.target.value);
-    }
-
-    let nameErrorDiv;
-    let roomErrorDiv;
-
-    if(nameErrorMsg) {
-        nameErrorDiv = (
-            <div className="errorMsg">
-                <p>{nameErrorMsg}</p>
-            </div>
-        )
-    }
-
-    if(roomErrorMsg) {
-        roomErrorDiv = (
-            <div className="errorMsg">
-                <p>{roomErrorMsg}</p>
-            </div>
-        )
-    }
+    const activeRoomsList = (
+        <ul className="roomList">
+            { activeRooms.map((room) => 
+                <li key={room.name}>{room.name} - {room.users}</li>
+            ) }
+        </ul>
+    );
 
     return (
         <div className="joinOuterContainer">
-            <div className="joinInnerContainer">
-                <h1 className="heading">Join</h1>
-                <div>
-                    <input id="nameInput" placeholder="Name" className={`joinInput ${nameErrorMsg ? "errorInput" : ""}`} type="text" onChange={(event) => nameChange(event)} />
-                    {nameErrorDiv}
-                </div>
-                <div>
-                    <input id="roomInput" placeholder="Room" className={`joinInput mt-20 ${roomErrorMsg ? "errorInput" : ""}`} type="text" onChange={(event) => roomChange(event)} />
-                    {roomErrorDiv}
-                </div>
+            
+            <JoinForm socket={socket} name={name} setName={setName} room={room} setRoom={setRoom} />
 
-                <Link onClick={event => verifyInput(event)} to={`/chat?name=${name}&room=${room}`}>
-                    <button className="button mt-20" type="submit">Sign In</button>
-                </Link>
+            <div className="activeRoomsContainer">
+                <h2 className="heading">Currently Active Rooms</h2>
+                {activeRooms.length > 0 ? activeRoomsList : <p>No rooms are currently being used.</p>}
             </div>
         </div>
     )

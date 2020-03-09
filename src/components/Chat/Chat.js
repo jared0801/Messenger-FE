@@ -10,13 +10,13 @@ import UserContainer from '../UserContainer/UserContainer';
 
 let socket;
 
-const Chat = ({ location }) => {
+const Chat = ({ location, history }) => {
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
     const [users, setUsers] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const ENDPOINT = 'localhost:5000';
+    const ENDPOINT = process.env.REACT_APP_SERVER_PATH;
 
     useEffect(() => {
         const { name, room } = queryString.parse(location.search);
@@ -26,16 +26,20 @@ const Chat = ({ location }) => {
         setName(name);
         setRoom(room);
 
-        socket.emit('join', { name, room }, () => {
-
+        // Check user name is available
+        socket.emit('checkUser', { name, room }, (success) => {
+            if(!success)
+                history.push('/');
         });
+
+        socket.emit('join', { name, room }, () => {});
 
         return () => {
             socket.emit('disconnect');
             socket.off();
         }
 
-    }, [ENDPOINT, location.search]);
+    }, [ENDPOINT, location.search, history]);
 
     useEffect(() => {
         socket.on('message', (message) => {
