@@ -13,7 +13,7 @@ const InfoBar = ({ room }) => (
             
         </div>
         <div className="rightInnerContainer">
-            <a href="/"><img src={closeIcon} alt="close" /></a>
+            <a href={process.env.PUBLIC_URL || '/'}><img src={closeIcon} alt="close" /></a>
         </div>
     </div>
 )

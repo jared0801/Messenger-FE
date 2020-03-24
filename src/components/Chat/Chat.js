@@ -39,7 +39,7 @@ const Chat = ({ location, history }) => {
             socket.off();
         }
 
-    }, [ENDPOINT, location.search, history]);
+    }, [ENDPOINT, location.search, location.pathname, history]);
 
     useEffect(() => {
         socket.on('message', (message) => {
@@ -67,7 +67,7 @@ const Chat = ({ location, history }) => {
     return (
         <div className="container">
             <div className="banner">
-                <a className="header" href="/"><h1>Realtime Chat App</h1></a>
+                <a className="header" href={process.env.PUBLIC_URL || '/'}><h1>Realtime Chat App</h1></a>
             </div>
             <div className="content">
                 <UserContainer users={users} />
