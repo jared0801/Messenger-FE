@@ -1,13 +1,16 @@
 import React from 'react';
 
-import './UserContainer.css';
+import './InfoContainer.css';
 
-const UserContainer = ({ users }) => (
-    <div className="userContainer">
+const InfoContainer = ({ users, room }) => (
+    <div className="infoContainer">
+        <div>
+            <h2 className="infoHeader"><i className="fas fa-location-arrow"></i> Room: {room}</h2>
+        </div>
         {users ? 
         ( 
             <div>
-                <h2 className="usersHeader">People currently chatting:</h2>
+                <h2 className="infoHeader"><i className="fas fa-users"></i> Users: </h2>
                 <div className="activeContainer">
                     <h3>
                         { users.map(({ name }) => (
@@ -23,4 +26,4 @@ const UserContainer = ({ users }) => (
     </div>
 );
 
-export default UserContainer;
+export default InfoContainer;

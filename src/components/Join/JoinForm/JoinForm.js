@@ -31,7 +31,7 @@ const JoinForm = ({ name, setName, room, setRoom, socket, onSuccess }) => {
     const verifyInput = (event) => {
         // Check both fields are filled.
         if(!name || !room) {
-            event.preventDefault();
+            if(event) event.preventDefault();
             if(!name) {
                 setNameErrorMsg("A name is required.");
             }
@@ -60,6 +60,12 @@ const JoinForm = ({ name, setName, room, setRoom, socket, onSuccess }) => {
         setNameErrorMsg('');
         setName(event.target.value);
     }
+
+    const onKeyPress = e => {
+        if(e.key === 'Enter') {
+            verifyInput();
+        }
+    }
     
     return (
         <div className="joinFormContainer">
@@ -69,7 +75,7 @@ const JoinForm = ({ name, setName, room, setRoom, socket, onSuccess }) => {
                 {nameErrorDiv}
             </div>
             <div>
-                <input id="roomInput" placeholder="Room" className={`joinInput mt-20 ${roomErrorMsg ? "errorInput" : ""}`} type="text" onChange={(event) => roomChange(event)} />
+                <input id="roomInput" onKeyPress={onKeyPress} placeholder="Room" className={`joinInput mt-20 ${roomErrorMsg ? "errorInput" : ""}`} type="text" onChange={(event) => roomChange(event)} />
                 {roomErrorDiv}
             </div>
 

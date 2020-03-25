@@ -1,21 +1,21 @@
 .container {
   display: grid;
-  height: 100vh;
-  grid-template-rows: 10% 90%;
-  background-color: #2851A3;
+  width: 80%;
+  height: 100%;
+  margin: auto;
+  border-radius: 10px;
+  grid-template-rows: 5em auto;
+  background-color: #1C2541;
 }
 
 .content {
   display: grid;
-  grid-template-columns: 20% 70%;
-  column-gap: 10%;
+  grid-template-columns: 20% 80%;
   align-items: center;
-  background-color: #1D3C78;
 }
 
 .banner {
-  margin: auto;
-  padding: 10px;
+  text-align: center;
 }
 
 .header {
@@ -36,12 +36,18 @@
 
 @media (max-width: 1200px) {
   .content {
-    grid-template-columns: 39% 60%;
-    column-gap: 1%;
+    grid-template-columns: 40% 60%;
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 600px) {
+  .content {
+    grid-template-columns: none;
+    grid-template-rows: 30% 70%;
+  }
+  .chatbox {
+    border-top: 5px solid;
+  }
   .banner {
     padding: 0;
   }

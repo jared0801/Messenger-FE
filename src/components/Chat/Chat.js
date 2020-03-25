@@ -3,10 +3,9 @@ import queryString from 'query-string';
 import io from 'socket.io-client';
 
 import './Chat.css';
-import InfoBar from '../InfoBar/InfoBar';
 import Input from '../Input/Input';
 import Messages from '../Messages/Messages';
-import UserContainer from '../UserContainer/UserContainer';
+import InfoContainer from '../InfoContainer/InfoContainer';
 
 let socket;
 
@@ -67,12 +66,13 @@ const Chat = ({ location, history }) => {
     return (
         <div className="container">
             <div className="banner">
-                <a className="header" href={process.env.PUBLIC_URL || '/'}><h1>Realtime Chat App</h1></a>
+                <a className="header" href={process.env.PUBLIC_URL || '/'}>
+                    <h1><i className="far fa-comments"></i> Realtime Chat App</h1>
+                </a>
             </div>
             <div className="content">
-                <UserContainer users={users} />
+                <InfoContainer users={users} room={room} />
                 <div className="chatbox">
-                    <InfoBar room={room}/>
 
                     <Messages messages={messages} name={name}/>
 
