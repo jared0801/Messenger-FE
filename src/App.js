@@ -8,7 +8,7 @@ import Chat from './components/Chat/Chat';
 import './theme.css'
 
 const App = () => (
-    <Router basename="/messenger">
+    <Router basename="/">
         <Route path="/" exact component={Join} />
         <Route path="/chat" component={Chat} />
     </Router>
