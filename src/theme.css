@@ -7,8 +7,9 @@ html, body {
 
 #root {
     height: 100%;
-    padding: 2em 0;
+    padding: 1em 0;
     background-color: #3A506B;
+    overflow: hidden;
 }
 
 * {

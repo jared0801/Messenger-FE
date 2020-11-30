@@ -1,5 +1,5 @@
 # Description
-This is a simple React/SocketIO project that allows users to create rooms where they can anonymously chat with one another.
+This is a simple React/Express/SocketIO project that allows users to create rooms where they can anonymously chat with one another.
 
 The React Native client can be found here: https://github.com/jared0801/Messenger-FE-Native
 

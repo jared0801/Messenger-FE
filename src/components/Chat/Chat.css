@@ -12,6 +12,7 @@
   display: grid;
   grid-template-columns: 20% 80%;
   align-items: center;
+  overflow-y: hidden;
 }
 
 .banner {
