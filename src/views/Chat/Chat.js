@@ -67,13 +67,12 @@ const Chat = ({ location, history }) => {
         <div className="container">
             <div className="banner">
                 <a className="header" href={process.env.PUBLIC_URL || '/'}>
-                    <h1><i className="far fa-comments"></i> Realtime Chat App</h1>
+                    <h1><i className="far fa-comments"></i> AMessenger Chat</h1>
                 </a>
             </div>
             <div className="content">
                 <InfoContainer users={users} room={room} />
                 <div className="chatbox">
-
                     <Messages messages={messages} name={name}/>
 
                     <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
