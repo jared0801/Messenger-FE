@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
-import JoinForm from './JoinForm/JoinForm';
+import JoinForm from '../../components/JoinForm/JoinForm';
+import RoomList from '../../components/RoomList/RoomList';
 
 import './Join.css';
 
@@ -35,23 +36,12 @@ const Join = ({ history }) => {
         history.push(`/chat?name=${name}&room=${room}`);
     }
 
-    const activeRoomsList = (
-        <ul className="roomList">
-            { activeRooms.map((room) => 
-                <li key={room.name}>{room.name} - {room.users}</li>
-            ) }
-        </ul>
-    );
-
     return (
         <div className="joinOuterContainer">
             
             <JoinForm onSuccess={moveToChat} socket={socket} name={name} setName={setName} room={room} setRoom={setRoom} />
 
-            <div className="activeRoomsContainer">
-                <h2 className="heading">Currently Active Rooms</h2>
-                {activeRooms.length > 0 ? activeRoomsList : <p>No rooms are currently being used.</p>}
-            </div>
+            <RoomList rooms={activeRooms}/>
         </div>
     )
 }

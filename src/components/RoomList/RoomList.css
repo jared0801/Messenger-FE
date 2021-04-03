@@ -1,0 +1,24 @@
+.activeRoomsContainer {
+    border-radius: 5px;
+    padding: 20px;
+    color: white;
+    align-self: flex-start;
+    overflow-y: auto;
+}
+
+.roomList {
+    text-align: left;
+}
+
+.roomList li {
+    padding: 5px;
+}
+
+
+@media (max-width: 1200px) {
+    .activeRoomsContainer {
+        margin-top: 5%;
+        height: 95%;
+        width: 100%;
+    }
+}
