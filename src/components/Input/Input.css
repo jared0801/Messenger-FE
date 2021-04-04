@@ -17,6 +17,30 @@ input:focus, textarea:focus, select:focus{
   outline: none;
 }
 
+.fileInput input[type="file"] {
+  display: none;
+}
+
+.fa-paperclip {
+  margin-right: 3px;
+}
+
+.fileInput {
+  color: #fff !important;
+  display: flex;
+  align-items: center;
+  background: #2979FF;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  max-width: 9em;
+  padding: 0 14px;
+  font-size: 13.3px;
+  margin-right: 3px;
+}
+
 .sendButton {
   color: #fff !important;
   text-transform: uppercase;
@@ -28,6 +52,7 @@ input:focus, textarea:focus, select:focus{
   cursor: pointer;
   width: 7em;
   max-width: 200px;
+  min-width: 4em;
 }
 
 @media (max-width: 1200px) {

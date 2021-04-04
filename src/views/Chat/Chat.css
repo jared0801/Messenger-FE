@@ -2,7 +2,6 @@
   display: grid;
   height: 100%;
   margin: auto;
-  border-radius: 10px;
   grid-template-rows: 5em auto;
   background-color: #1C2541;
 }

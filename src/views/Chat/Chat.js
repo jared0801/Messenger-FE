@@ -14,6 +14,7 @@ const Chat = ({ location, history }) => {
     const [room, setRoom] = useState('');
     const [users, setUsers] = useState('');
     const [message, setMessage] = useState('');
+    const [file, setFile] = useState('');
     const [messages, setMessages] = useState([]);
     const ENDPOINT = process.env.REACT_APP_SERVER_PATH;
 
@@ -58,8 +59,22 @@ const Chat = ({ location, history }) => {
     const sendMessage = (event) => {
         event.preventDefault();
 
+        const payload = {};
+
         if(message) {
-            socket.emit('sendMessage', message, () => setMessage(''));
+            payload.message = message;
+        }
+        if(file) {
+            payload.file = {};
+            payload.file.data = file;
+            payload.file.name = file.name;
+            payload.file.type = file.type;
+        }
+        if(message || file) {
+            socket.emit('sendMessage', payload, () => {
+                setMessage('');
+                setFile('');
+            });
         }
     }
 
@@ -75,7 +90,7 @@ const Chat = ({ location, history }) => {
                 <div className="chatbox">
                     <Messages messages={messages} name={name}/>
 
-                    <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
+                    <Input message={message} setMessage={setMessage} sendMessage={sendMessage} file={file} setFile={setFile} />
                 </div>
             </div>
         </div>
