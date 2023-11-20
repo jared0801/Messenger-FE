@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
+import { io } from 'socket.io-client';
 import JoinForm from '../../components/JoinForm/JoinForm';
 import RoomList from '../../components/RoomList/RoomList';
+import { useNavigate } from "react-router-dom";
 
 import './Join.css';
 
 let socket;
 
-const Join = ({ history }) => {
+const Join = () => {
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
     const [activeRooms, setActiveRooms] = useState([]);
     const ENDPOINT = process.env.REACT_APP_SERVER_PATH;
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -27,13 +29,14 @@ const Join = ({ history }) => {
         })
 
         return () => {
-            socket.emit('disconnect');
+            //socket.emit('disconnect');
+            //socket.disconnect();
             socket.off();
         }
     });
 
     const moveToChat = () => {
-        history.push(`/chat?name=${name}&room=${room}`);
+        navigate(`/chat?name=${name}&room=${room}`);
     }
 
     return (

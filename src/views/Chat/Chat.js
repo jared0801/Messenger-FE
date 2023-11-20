@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import queryString from 'query-string';
 import io from 'socket.io-client';
+import { useNavigate } from "react-router-dom";
 
 import './Chat.css';
 import Input from '../../components/Input/Input';
@@ -9,7 +10,7 @@ import InfoContainer from '../../components/InfoContainer/InfoContainer';
 
 let socket;
 
-const Chat = ({ location, history }) => {
+const Chat = () => {
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
     const [users, setUsers] = useState('');
@@ -17,9 +18,10 @@ const Chat = ({ location, history }) => {
     const [file, setFile] = useState('');
     const [messages, setMessages] = useState([]);
     const ENDPOINT = process.env.REACT_APP_SERVER_PATH;
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const { name, room } = queryString.parse(location.search);
+        const { name, room } = queryString.parse(document.location.search);
 
         socket = io(ENDPOINT);
 
@@ -29,17 +31,18 @@ const Chat = ({ location, history }) => {
         // Check user name is available
         socket.emit('checkUser', { name, room }, (success) => {
             if(!success)
-                history.push('/');
+                navigate('/');
         });
 
         socket.emit('join', { name, room }, () => {});
 
         return () => {
-            socket.emit('disconnect');
+            //socket.emit('disconnect');
+            //socket.disconnect();
             socket.off();
         }
 
-    }, [ENDPOINT, location.search, location.pathname, history]);
+    }, [ENDPOINT, navigate]);
 
     useEffect(() => {
         socket.on('message', (message) => {
@@ -51,7 +54,8 @@ const Chat = ({ location, history }) => {
         });
 
         return () => {
-            socket.emit('disconnect');
+            //socket.emit('disconnect');
+            //socket.disconnect();
             socket.off();
         }
     }, [messages]);
